@@ -12,7 +12,9 @@ export default function CurrencyRow(props) {
   return (
     <Wrapper>
       <AmountBar type="number" value={amount} onChange={onChangeAmount} />
-      <Currencies value={selectedCurrency} onChange={onChangeCurrency}>
+      <Currencies 
+      key={Math.random()}
+      value={selectedCurrency} onChange={onChangeCurrency}>
         {currencyOptions.map(option => (
           <option key={option} value={option}>{option}</option>
         ))}

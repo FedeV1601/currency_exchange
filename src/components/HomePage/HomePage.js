@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Imagen from '../../img/imagenFondo.jpg'
 import {useHistory} from 'react-router'
 
-const BASE_URL = 'http://api.exchangeratesapi.io/v1/latest?access_key=34265f4ee8b908bec4a97f0d7b103907';
+const BASE_URL = 'https://api.frankfurter.app/latest?';
 
 export const HomePage = () => {
  // ----------------------------ATENCION componentes para EL BOTON ------------------------
@@ -44,7 +44,7 @@ export const HomePage = () => {
     if (fromCurrency === toCurrency && fromCurrency != null) {
       setExchangeRate(1);
     } else if (fromCurrency != null && toCurrency != null) {
-      fetch(`${BASE_URL}&base=${fromCurrency}&symbols=${toCurrency}`)
+      fetch(`${BASE_URL}&from=${fromCurrency}&to=${toCurrency}`)
         .then(response => response.json())
         .then(data => setExchangeRate(data.rates[toCurrency]));
     }
@@ -69,10 +69,10 @@ export const HomePage = () => {
 
   return (
     <Home>
-       <Button onClick={handleSearchClick}>Credits</Button>
-      <Title>Money Exchange</Title>
-      <SubTitle>Convert</SubTitle>
-      <CurrencyRow key={Math.random()}
+       <Button onClick={handleSearchClick}>Creditos</Button>
+      <Title> Conversor de divisas</Title>
+      <SubTitle>¡Convertir!</SubTitle>
+      <CurrencyRow 
         currencyOptions={currencyOptions}
         selectedCurrency={fromCurrency}
         onChangeCurrency={e => setFromCurrency(e.target.value)}
@@ -80,7 +80,7 @@ export const HomePage = () => {
         amount={fromAmount}
       />
       <Equals>=</Equals>
-      <CurrencyRow key={Math.random()}
+      <CurrencyRow 
         currencyOptions={currencyOptions}
         selectedCurrency={toCurrency}
         onChangeCurrency={e => setToCurrency(e.target.value)}
@@ -105,6 +105,7 @@ export const HomePage = () => {
 
     const Title = styled.h1`
           font-size: 4rem;
+          text-decoration: underline;   
           color: white;
              `;
 

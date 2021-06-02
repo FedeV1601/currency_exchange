@@ -12,7 +12,7 @@ return(
     <BrowserRouter>
     <Switch>
       <Route path="/credits">
-      <Credits />
+        <Credits />
       </Route>
       <Route path="/">
         <HomePage />
