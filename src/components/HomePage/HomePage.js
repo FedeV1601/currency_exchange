@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
-import CurrencyRow from './CurrencyRow.js'
+import CurrencyRow from '../CurrencyRow/CurrencyRow'
+import styled from 'styled-components'
+import Imagen from '../../img/imagenFondo.jpg'
+import {useHistory} from 'react-router'
 
 const BASE_URL = 'http://api.exchangeratesapi.io/v1/latest?access_key=34265f4ee8b908bec4a97f0d7b103907';
 
-function App() {
+export const HomePage = () => {
+ // ----------------------------ATENCION componentes para EL BOTON ------------------------
+//const [input, setInput] = React.useState();
+  const history = useHistory();
+
+
   const [currencyOptions, setCurrencyOptions] = useState([])
   const [fromCurrency, setFromCurrency] = useState()
   const [toCurrency, setToCurrency] = useState()
@@ -54,26 +61,70 @@ function App() {
     setAmountInFromCurrency(false)
   }
 
+  // ----------------------------ATENCION CON EL BOTON ------------------------
+  function handleSearchClick(){
+    
+      history.replace("/credits");
+  }
+
   return (
-    <>
-      <h1>Convert</h1>
-      <CurrencyRow
+    <Home>
+       <Button onClick={handleSearchClick}>Credits</Button>
+      <Title>Money Exchange</Title>
+      <SubTitle>Convert</SubTitle>
+      <CurrencyRow key={Math.random()}
         currencyOptions={currencyOptions}
         selectedCurrency={fromCurrency}
         onChangeCurrency={e => setFromCurrency(e.target.value)}
         onChangeAmount={handleFromAmountChange}
         amount={fromAmount}
       />
-      <div className="equals">=</div>
-      <CurrencyRow
+      <Equals>=</Equals>
+      <CurrencyRow key={Math.random()}
         currencyOptions={currencyOptions}
         selectedCurrency={toCurrency}
         onChangeCurrency={e => setToCurrency(e.target.value)}
         onChangeAmount={handleToAmountChange}
         amount={toAmount}
       />
-    </>
-  );
-}
+    </Home>
 
-export default App;
+);
+}
+    const Home = styled.div`
+          margin: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          min-height: 100vh;
+          background-image: url(${Imagen});
+          background-repeat: no-repeat;
+  
+    `;
+
+    const Title = styled.h1`
+          font-size: 4rem;
+          color: white;
+             `;
+
+      const SubTitle = styled.h2`
+      font-size: 4rem;
+      margin-bottom: 40px;
+      color: white;
+ `;
+
+    const Equals = styled.div`
+          font-weight: bold;
+          font-size: 5rem;
+          color: white;
+    `;
+
+    const Button = styled.button`
+    margin-top: 10px;
+    font-size: 24px;
+    border-radius: 4px;
+    padding: 4px;
+    font-weight: bold;
+    background-color: green;
+        `;
